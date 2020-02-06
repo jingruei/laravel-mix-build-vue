@@ -35,7 +35,7 @@ __webpack_require__.r(__webpack_exports__);
         return alertify.error('名稱未輸入');
       }
 
-      this.$emit('add', this.name); //$emit 觸發，(觸發某事件，) 
+      this.$emit('add', this.name); //$emit觸發，(觸發某事件，變數) 
     },
     enterDoAdd: function enterDoAdd(e) {
       if (e.keyCode == 13 || e.which == 13) {
@@ -118,6 +118,12 @@ __webpack_require__.r(__webpack_exports__);
     },
     removeIndex: function removeIndex(index) {
       this.items.splice(index, 1); //splice切割(哪個,第幾個開始
+    },
+    doAdd: function doAdd(name) {
+      this.items.push({
+        name: name,
+        students: []
+      });
     }
   }
 });
@@ -949,7 +955,7 @@ new Vue({
   },
   methods: {
     doAdd: function doAdd(name) {
-      console.log(name);
+      this.$refs.table.doAdd(name);
     }
   }
 });
