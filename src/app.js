@@ -12,5 +12,9 @@ new Vue({
             title: 'Student List',
         }
     },
-    methods: {}
+    methods: {
+        doAdd(name) {
+            console.log(name);
+        }
+    }
 })
