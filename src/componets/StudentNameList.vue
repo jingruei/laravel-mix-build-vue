@@ -58,6 +58,12 @@ export default ({
         removeIndex(index) {
             this.items.splice(index, 1);    //splice切割(哪個,第幾個開始
         },
+        doAdd(name) {
+            this.items.push({
+                name: name,
+                students: []
+            });
+        }
     }
 })
 </script>
