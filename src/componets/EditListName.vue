@@ -19,7 +19,7 @@
         },
         methods: {
             load(data) {
-                this.name = data.name;
+                this.name = name;
             },
             doSave() {
                 if (!this.name) {

@@ -38,10 +38,10 @@
                 <tbody>
                     <tr v-for="(item, index) in items" :key="index">
                         <td>
-                            <button class="btn btn-primary btn-sm" @click="setIndex(index)"><i
+                            <button class="btn btn-primary btn-sm" @click="toEdit(index)"><i
                                     class="fas fa-edit"></i>編輯</button>
-                            <button class="btn btn-danger btn-sm" @click="removeIndex(index)">
-                                <iclass="far fa-trash-alt"></i> 刪除
+                            <button class="btn btn-danger btn-sm" @click="removeIndex(index)"><i
+                                    class="far fa-trash-alt"></i>刪除
                             </button>
                         </td>
                         <td>{{ item.name }}</td>
@@ -63,19 +63,19 @@
                     name: '',
                     sex: '',
                     age: '',
-                }
+                },
+                editIndex: -1,
+                mode: 'add'
             }
         },
         methods: {
             load(students) {
-                this.items = JSON.parse(JSON.stringify(students)) || [];   //來回變換型態以改變位址
+                this.items = JSON.parse(JSON.stringify(students)) || []; //來回變換型態以改變位址，避免call by reference有問題
             },
-            setIndex(index) {
+            toEdit(index) {
                 this.editIndex = index;
-
-                this.$nextTick(() => {
-                    this.$refs.students && this.$refs.students[index] && this.$refs.students[index].focus();
-                });
+                this.data = JSON.parse(JSON.stringify(this.items[index]));
+                this.mode = 'edit';
             },
             removeIndex(index) {
                 this.items.splice(index, 1);
@@ -84,21 +84,35 @@
                 this.$emit('save', this.items);
             },
             doAdd() {
-                for (let f in this.data) {
-                    if (!this.data[f]) {
-                        alertify.error('欄位未填寫');
-                        return this.$refs[f].focus();
-                    }
+                if (!this.valid()) {
+                    return false;
                 }
                 this.items.push(JSON.parse(JSON.stringify(this.data)));
+                this.reset();
+            },
+            doUpdate() {
+                if (!this.valid()) {
+                    return false;
+                }
+                this.mode = 'add';
+                this.items[this.editIndex] = JSON.parse(JSON.stringify(this.data));
                 this.reset();
             },
             reset() {
                 for (let f in this.data) {
                     this.data[f] = '';
                 }
+            },
+            valid() {
+                for (let f in this.data) {
+                    if (!this.data[f]) {
+                        alertify.error('欄位未填寫');
+                        this.$refs[f].focus();
+                        return false
+                    }
+                }
+                return true;
             }
         }
-    }
     }
 </script>

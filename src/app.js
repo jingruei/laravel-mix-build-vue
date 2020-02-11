@@ -7,7 +7,7 @@ import EditListName from './componets/EditListName'
 
 new Vue({
     el: '#app',
-    components: {StudentNameList, AddStudent},  //components為關鍵字，等於使用元件(引用+使用才完整)
+    components: {StudentNameList, AddStudent, StudentTable, EditListName },  //components為關鍵字，等於使用元件(引用+使用才完整)
 
     data() {
         return {
@@ -33,6 +33,11 @@ new Vue({
         doSaveName(name) {
             this.editData.name = name;
             this.$refs.table.update(this.editIndex, this.editData);
+        },
+        doSaveStudents(students) {
+            this.editData.students = students;
+            this.$refs.table.update(this.editIndex, this.editData);
+            alertify.success('儲存完成');
         }
     }
 })

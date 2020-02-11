@@ -10,7 +10,7 @@
             <tbody>
                 <tr v-for="(item, index) in items" :key="index">
                     <td>
-                        <button class="btn btn-primary btn-sm" @click="setIndex(index)"><i class="fas fa-edit"></i> 編輯</button>
+                        <button class="btn btn-primary btn-sm" @click="toEdit(index)"><i class="fas fa-edit"></i> 編輯</button>
                         <button class="btn btn-danger btn-sm" @click="removeIndex(index)"><i class="far fa-trash-alt"></i> 刪除</button>
                     </td>
                     <td>
