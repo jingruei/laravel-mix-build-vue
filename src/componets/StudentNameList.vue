@@ -29,7 +29,7 @@ export default ({
     data() {
         return  {
             items: [
-                { name: '資優生', students: [] },
+                { name: '資優生', students: [{name: 'A', sex: 'M', age: 19}] },
                 { name: '放牛班', students: [] },
                 { name: '特別分班', students: [] },
             ],
@@ -63,6 +63,13 @@ export default ({
                 name: name,
                 students: []
             });
+        },
+        toEdit(index) {
+            let data = this.item[index];
+            this.$emit('edit', index, data);
+        },
+        update(index, data) {
+            this.items[index] = data;
         }
     }
 })

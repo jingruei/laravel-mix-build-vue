@@ -14,11 +14,22 @@
         <div class="alert alert-info mt-2">
             <h4><i class="fas fa-users-cog"></i> {{ title }} hello</h4>
         </div>
-        <div class="form-group">
+        
+        <div class="form-group" v-show="mode == 'list'">
             <add-student @add="doAdd"></add-student>  <!--元件轉標籤-->
             <!--@為事件add為自取名稱可隨意命名，=後面做事件的方法-->
-            <student-name-list ref="table"></student-name-list>  <!--大駝峰使用標籤要-分開表示-->
-            
+            <student-name-list ref="table" @edit="toEdit"></student-name-list>  <!--大駝峰使用標籤要-分開表示-->
+        </div>
+
+        <div class="form-group" v-show="mode == 'edit'">
+            <div class="form-group">
+                <button class="btn btn-danger btn-sm" @click="toList">回列表</button>
+            </div>
+
+            <h5>名稱編輯</h5>
+            <edit-list-name ref="editListName" @save="doSaveName"></edit-list-name>
+            <h5>學生列表</h5>
+            <student-table ref="studentTable"></student-table>
         </div>
     </div>
 </body>
